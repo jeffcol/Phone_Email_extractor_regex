@@ -21,21 +21,7 @@ Now you can start thinking about how this might work in code. The code will need
 - Display some kind of message if no matches were found in the text.
 '''
 
-import re, pyperclip
-
-
-phone = re.compile(r'\d{3}\s?\d{4}')
-
-mail = re.compile(r'(\w+@\w+\.\w+(\.\w+)?)')
-
-phoneR = phone.findall(pyperclip.paste())
-
-mailR = mail.findall(pyperclip.paste())
-
-print(phoneR)
-print(mailR)
-
-'''
+start_copy = '''
 Example text, copy it before launching the script
 
 Contáctenos
@@ -82,3 +68,28 @@ Igualmente por el correo electrónico: eva@funcionpublica.gov.co,
 
 También puede enviar sus peticiones a través del  FAX: (57+1) 7395657.
 '''
+
+import re, pyperclip
+
+pyperclip.copy(start_copy)
+
+phone = re.compile(r'\d{3}\s?\d{4}')
+
+mail = re.compile(r'(\w+@\w+\.\w+(\.\w+)?)')
+
+phoneR = phone.findall(pyperclip.paste())
+
+mailR = mail.findall(pyperclip.paste())
+
+#Emails to String
+
+#print('Emails: ' + ' - '.join(mailR))
+
+
+#Converting to Strings
+
+print('Numbers: ' + ' - '.join(phoneR))
+
+print(type(phoneR))
+print(type(mailR))
+
