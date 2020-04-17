@@ -34,6 +34,8 @@ print(phoneR)
 print(mailR)
 
 '''
+Example text, copy it before launching the script
+
 Contáctenos
 Usted puede formular peticiones, quejas, reclamos, sugerencias y denuncias (PQRSD),
  relacionados con la gestión o con temas de competencia del Departamento.
