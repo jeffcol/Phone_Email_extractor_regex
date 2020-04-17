@@ -1,4 +1,6 @@
 '''
+Project Description.
+
 Whenever you’re tackling a new project, it can be tempting to dive right into writing code. 
 But more often than not, it’s best to take a step back and consider the bigger picture. 
 I recommend first drawing up a high-level plan for what your program needs to do. 
