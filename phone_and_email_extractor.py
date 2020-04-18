@@ -21,7 +21,8 @@ Now you can start thinking about how this might work in code. The code will need
 - Display some kind of message if no matches were found in the text.
 '''
 
-start_copy = '''
+
+'''
 Example text, copy it before launching the script
 
 Contáctenos
@@ -63,15 +64,16 @@ Igualmente por el correo electrónico: eva@funcionpublica.gov.co,
  o diligenciando el "Formulario de PQRS"
   disponible en nuestro portal www.funcionpublica.gov.co, 
   en el siguiente enlace: Servicio al Ciudadano "Formule su PQRS". 
-
+correo electrónico: eva@funcionpublica.com
  
 
 También puede enviar sus peticiones a través del  FAX: (57+1) 7395657.
 '''
 
 import re, pyperclip
+emails = ''
 
-pyperclip.copy(start_copy)
+#pyperclip.copy(start_copy)
 
 phone = re.compile(r'\d{3}\s?\d{4}')
 
@@ -83,13 +85,14 @@ mailR = mail.findall(pyperclip.paste())
 
 #Emails to String
 
-#print('Emails: ' + ' - '.join(mailR))
+#print('Emails: ' + ' - '.join(list(mailR)))
+print(list(mailR))
 
+for i in range(len(mailR)):
+    emails += mailR[i][0] + ' - '
 
-#Converting to Strings
+print('Emails: ' + emails)
 
 print('Numbers: ' + ' - '.join(phoneR))
 
-print(type(phoneR))
-print(type(mailR))
 
