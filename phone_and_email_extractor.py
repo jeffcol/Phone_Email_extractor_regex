@@ -22,77 +22,88 @@ Now you can start thinking about how this might work in code. The code will need
 '''
 
 
+copy_this = '''
+Text:
+    Contact Us
+
+    No Starch Press, Inc.
+    245 8th Street
+    San Francisco, CA 94103 USA
+    Phone: 800.420.7240 or +1 415.863.9900 (9 a.m. to 5 p.m., M-F, PST)
+    Fax: +1 415.863.9950
+
+    Reach Us by Email
+
+    General inquiries: info@nostarch.com
+    Media requests: media@nostarch.com
+    Academic requests: academic@nostarch.com (Further information)
+    Help with your order: info@nostarch.com
+    Reach Us on Social Media
+    Twitter
+    Facebook
+    Instagram
+    Linkedin
+    Pinterest
+    4258565
 '''
-Example text, copy it before launching the script
 
-Contáctenos
-Usted puede formular peticiones, quejas, reclamos, sugerencias y denuncias (PQRSD),
- relacionados con la gestión o con temas de competencia del Departamento.
- 
-Nos puede contactar a través de los siguientes canales de atención:
- 
-Presencial: En nuestras oficinas ubicadas en la ciudad de Bogotá en la Carrera 6 No 12-62, 
-en jornada continua de lunes a viernes de 7:30 a.m. a 6:00 p.m. 
-para el Grupo de Servicio al Ciudadano Institucional y en las demás dependencias de la Entidad de 8:00 a.m a 5:30 p.m.
-Igualmente por el correo electrónico: presencial@funcionpublica.gov.co
- 
+'''
+Expected:
+    Copied to clipboard:
+    800-420-7240
+    415-863-9900
+    415-863-9950
+    info@nostarch.com
+    media@nostarch.com
+    academic@nostarch.com
+    info@nostarch.com
 
-Telefónico: A través del PBX (57+1) 739 5656 opción 3, 
-Línea Gratuita Nacional 018000 917770 de lunes a viernes en horario de 8:00 a.m. a 5:00 p.m.
-
- 
-
-Mesa de ayuda SIGEP: PBX (57+1) 7395656 opción 2.
-
-Mesa de ayuda SUIT: PBX (57+1) 7395656 opción 1. 
-
- 
-
-Virtual: Chat EVA, ingresando a nuestro portal www.funcionpublica.gov.co, 
-opción "Chat Virtual", de lunes a viernes en horario de 8:00 a.m. a 5:00 p.m.
- Facebook: Departamento Administrativo de la Función Pública. Twitter: @DAFP_COLOMBIA
-Igualmente por el correo electrónico: virtual@funcionpublica.gov.co
- 
-
-Escrito: A través de la ventanilla de recepción de documentos ubicada en la carrera 6 No.
- 12-62, 4to piso, se podrán radicar en forma física o a través de correo postal las peticiones, 
- quejas, reclamos, sugerencias y denuncias por actos de corrupción en jornada continua de 8:00 a.m. a 4:00 p.m.
-
- 
-
-Igualmente por el correo electrónico: eva@funcionpublica.gov.co,
- o diligenciando el "Formulario de PQRS"
-  disponible en nuestro portal www.funcionpublica.gov.co, 
-  en el siguiente enlace: Servicio al Ciudadano "Formule su PQRS". 
-correo electrónico: eva@funcionpublica.com
- 
-
-También puede enviar sus peticiones a través del  FAX: (57+1) 7395657.
 '''
 
 import re, pyperclip
 emails = ''
 
-#pyperclip.copy(start_copy)
+pyperclip.copy(copy_this)
 
-phone = re.compile(r'\d{3}\s?\d{4}')
+phone = re.compile(r'''
+( 
+(\d{3})?
+(\s|\.|-)?
+(\d{3})
+(\s|\.|-)?
+(\d{4})
+)
+''', re.VERBOSE)
 
-mail = re.compile(r'(\w+@\w+\.\w+(\.\w+)?)')
 
-phoneR = phone.findall(pyperclip.paste())
+numbers = []
 
-mailR = mail.findall(pyperclip.paste())
+for number in phone.findall(pyperclip.paste()):
+    numberstr = ''
+    if number[1] != '':
+        numberstr = '-'.join([number[1], number[3], number[5]])
+
+    else:
+        numberstr = '-'.join([number[3], number[5]])
+    numbers.append(numberstr)
+
+
+# mail = re.compile(r'(\w+@\w+\.\w+(\.\w+)?)')
+# mailR = mail.findall(pyperclip.paste())
 
 #Emails to String
 
 #print('Emails: ' + ' - '.join(list(mailR)))
-print(list(mailR))
+#print(list(mailR))
 
-for i in range(len(mailR)):
-    emails += mailR[i][0] + ' - '
+#for i in range(len(mailR)):
+#     emails += mailR[i][0] + ' - '
 
-print('Emails: ' + emails)
+#print('Emails: ' + emails)
 
-print('Numbers: ' + ' - '.join(phoneR))
+final_copy = '\n'.join(numbers)
+pyperclip.copy(final_copy)
+
+print('Copied to the clipboard: \n' + final_copy)
 
 
