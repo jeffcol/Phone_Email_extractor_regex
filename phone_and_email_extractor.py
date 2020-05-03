@@ -21,7 +21,7 @@ Now you can start thinking about how this might work in code. The code will need
 - Display some kind of message if no matches were found in the text.
 '''
 
-
+#Text as example
 copy_this = '''
 Text:
     Contact Us
@@ -37,7 +37,7 @@ Text:
     General inquiries: info@nostarch.com
     Media requests: media@nostarch.com
     Academic requests: academic@nostarch.com (Further information)
-    Help with your order: info@nostarch.com
+    Help with your order: info@nostarch.com.co
     Reach Us on Social Media
     Twitter
     Facebook
@@ -63,7 +63,8 @@ Expected:
 import re, pyperclip
 emails = ''
 
-pyperclip.copy(copy_this)
+#uncomment for a quick copy of the example text
+#pyperclip.copy(copy_this)
 
 phone = re.compile(r'''
 ( 
@@ -88,22 +89,31 @@ for number in phone.findall(pyperclip.paste()):
     numbers.append(numberstr)
 
 
-# mail = re.compile(r'(\w+@\w+\.\w+(\.\w+)?)')
-# mailR = mail.findall(pyperclip.paste())
 
-#Emails to String
+mail = re.compile(r'''
+(
+    \w+
+    @
+    \w+
+    \.
+    \w+
+    (\.\w+)?
+)
 
-#print('Emails: ' + ' - '.join(list(mailR)))
-#print(list(mailR))
+''', re.VERBOSE)
 
-#for i in range(len(mailR)):
-#     emails += mailR[i][0] + ' - '
 
-#print('Emails: ' + emails)
+mailR = mail.findall(pyperclip.paste())
 
-final_copy = '\n'.join(numbers)
-pyperclip.copy(final_copy)
 
-print('Copied to the clipboard: \n' + final_copy)
+for i in mailR:
+    emails += i[0] + '\n'
+
+
+final_numbers = '\n'.join(numbers)
+pyperclip.copy(final_numbers + '\n' + emails)
+
+print('Numbers Copied to the clipboard: \n' + final_numbers)
+print('Emails Copied to the clipboard: \n' + emails)
 
 
