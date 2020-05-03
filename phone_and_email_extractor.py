@@ -21,7 +21,7 @@ Now you can start thinking about how this might work in code. The code will need
 - Display some kind of message if no matches were found in the text.
 '''
 
-
+#Text as example
 copy_this = '''
 Text:
     Contact Us
@@ -63,7 +63,8 @@ Expected:
 import re, pyperclip
 emails = ''
 
-pyperclip.copy(copy_this)
+#uncomment for a quick copy of the example text
+#pyperclip.copy(copy_this)
 
 phone = re.compile(r'''
 ( 
